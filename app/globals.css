@@ -1,0 +1,233 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #0a0e1a;
+  --color-surface: #111827;
+  --color-surface-elevated: #1a2236;
+  --color-border-base: rgba(148, 163, 184, 0.1);
+  --color-border-strong: rgba(148, 163, 184, 0.18);
+
+  --color-primary: #7cc4ff;
+  --color-primary-bright: #a8d8ff;
+  --color-primary-dim: #4d9cd6;
+
+  --color-text-primary: #e8eef7;
+  --color-text-secondary: #94a3b8;
+  --color-text-muted: #64748b;
+
+  --color-success: #34d399;
+  --color-warning: #fbbf24;
+  --color-danger: #f87171;
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  --shadow-glow: 0 0 0 1px rgba(124, 196, 255, 0.18), 0 8px 32px -8px rgba(124, 196, 255, 0.25);
+  --shadow-card: 0 1px 0 0 rgba(255, 255, 255, 0.03) inset, 0 8px 24px -12px rgba(0, 0, 0, 0.6);
+
+  --radius-card: 12px;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--color-background);
+}
+
+body {
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(124, 196, 255, 0.12), transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 30%, rgba(124, 196, 255, 0.06), transparent 60%),
+    var(--color-background);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "ss02", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border-base);
+  }
+  *:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  ::selection {
+    background: rgba(124, 196, 255, 0.3);
+    color: var(--color-text-primary);
+  }
+}
+
+@layer utilities {
+  .text-gradient-cyan {
+    background: linear-gradient(135deg, #a8d8ff 0%, #7cc4ff 50%, #4d9cd6 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  .text-gradient-soft {
+    background: linear-gradient(180deg, #e8eef7 0%, #94a3b8 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, rgba(148, 163, 184, 0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(148, 163, 184, 0.06) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+
+  .bg-grid-fine {
+    background-image:
+      linear-gradient(to right, rgba(148, 163, 184, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(148, 163, 184, 0.04) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  .mask-radial-fade {
+    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 30%, transparent 80%);
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 30%, transparent 80%);
+  }
+
+  .mask-radial-fade-bottom {
+    -webkit-mask-image: radial-gradient(ellipse 70% 80% at 50% 0%, black 30%, transparent 90%);
+    mask-image: radial-gradient(ellipse 70% 80% at 50% 0%, black 30%, transparent 90%);
+  }
+
+  .border-soft {
+    border: 1px solid var(--color-border-base);
+  }
+
+  .border-glow {
+    border: 1px solid var(--color-border-base);
+    transition: border-color 240ms ease, box-shadow 240ms ease, transform 240ms ease;
+  }
+  .border-glow:hover {
+    border-color: rgba(124, 196, 255, 0.35);
+    box-shadow: var(--shadow-glow);
+  }
+
+  .glass {
+    background: rgba(17, 24, 39, 0.55);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    border: 1px solid var(--color-border-base);
+  }
+
+  .glass-strong {
+    background: rgba(10, 14, 26, 0.75);
+    backdrop-filter: blur(18px) saturate(160%);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
+    border: 1px solid var(--color-border-strong);
+  }
+
+  .scanline::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      rgba(124, 196, 255, 0.08) 50%,
+      transparent 100%
+    );
+    background-size: 100% 8px;
+    animation: scanline-shift 6s linear infinite;
+    mix-blend-mode: screen;
+    opacity: 0.5;
+  }
+
+  .gradient-border {
+    position: relative;
+    isolation: isolate;
+  }
+  .gradient-border::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    border-radius: inherit;
+    background: linear-gradient(
+      135deg,
+      rgba(124, 196, 255, 0.6) 0%,
+      rgba(124, 196, 255, 0.05) 30%,
+      rgba(148, 163, 184, 0.06) 70%,
+      rgba(124, 196, 255, 0.4) 100%
+    );
+    -webkit-mask:
+      linear-gradient(#000, #000) content-box,
+      linear-gradient(#000, #000);
+    mask:
+      linear-gradient(#000, #000) content-box,
+      linear-gradient(#000, #000);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .pulse-dot {
+    position: relative;
+  }
+  .pulse-dot::before {
+    content: "";
+    position: absolute;
+    inset: -4px;
+    border-radius: 9999px;
+    background: currentColor;
+    opacity: 0.4;
+    animation: pulse-ring 2s ease-out infinite;
+  }
+}
+
+@keyframes scanline-shift {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 100%; }
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.8); opacity: 0.6; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -8px, 0); }
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+
+@keyframes data-flow {
+  0% { stroke-dashoffset: 80; opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { stroke-dashoffset: 0; opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
