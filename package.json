@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "pdf:architecture": "md-to-pdf ARCHITECTURE.md --stylesheet scripts/pdf-style.css --pdf-options '{\"format\":\"A4\",\"printBackground\":true,\"margin\":{\"top\":\"22mm\",\"bottom\":\"22mm\",\"left\":\"18mm\",\"right\":\"18mm\"}}' && mv ARCHITECTURE.pdf public/ARCHITECTURE.pdf"
   },
   "dependencies": {
     "class-variance-authority": "0.7.1",
@@ -27,6 +28,7 @@
     "@types/node": "22.10.5",
     "@types/react": "19.0.2",
     "@types/react-dom": "19.0.2",
+    "md-to-pdf": "^5.2.5",
     "postcss": "8.4.49",
     "tailwindcss": "4.0.0-beta.8",
     "typescript": "5.7.2"
