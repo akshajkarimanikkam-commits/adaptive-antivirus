@@ -2,7 +2,13 @@
 
 @page {
   size: A4;
-  margin: 22mm 18mm 22mm 18mm;
+  margin: 22mm 20mm 22mm 20mm;
+  @bottom-center {
+    content: counter(page) " / " counter(pages);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8pt;
+    color: #94A3B8;
+  }
 }
 
 * {
@@ -10,161 +16,155 @@
 }
 
 html, body {
-  background: #0A0E1A;
-  color: #E8EEF7;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 10.5pt;
-  line-height: 1.55;
+  background: #ffffff;
+  color: #1F2937;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 10pt;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -webkit-print-color-adjust: exact;
   print-color-adjust: exact;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  color: #E8EEF7;
-  font-weight: 700;
-  letter-spacing: -0.02em;
+/* — Headings — */
+h1, h2, h3, h4 {
+  font-weight: 600;
+  letter-spacing: -0.015em;
   page-break-after: avoid;
-  margin-top: 1.4em;
-  margin-bottom: 0.6em;
+  color: #0F172A;
 }
 
 h1 {
-  font-size: 24pt;
-  border-bottom: 1px solid rgba(124, 196, 255, 0.25);
+  font-size: 22pt;
+  margin: 1.4em 0 0.6em 0;
   padding-bottom: 0.4em;
-  margin-top: 0.6em;
+  border-bottom: 1px solid #E2E8F0;
+  font-weight: 700;
 }
 
 h1:first-of-type {
-  font-size: 28pt;
-  background: linear-gradient(135deg, #A8D8FF 0%, #7CC4FF 50%, #4D9CD6 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-  border-bottom: none;
+  margin-top: 0;
 }
 
 h2 {
-  font-size: 16pt;
-  color: #7CC4FF;
-  margin-top: 1.6em;
+  font-size: 14pt;
+  margin: 1.8em 0 0.5em 0;
+  color: #0F172A;
 }
 
 h3 {
-  font-size: 13pt;
-  color: #E8EEF7;
+  font-size: 11.5pt;
+  margin: 1.4em 0 0.4em 0;
+  color: #1F2937;
 }
 
 h4 {
-  font-size: 11.5pt;
-  color: #94A3B8;
+  font-size: 9.5pt;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: #64748B;
+  margin: 1.2em 0 0.4em 0;
+}
+
+/* — Body — */
+p {
+  margin: 0 0 0.8em 0;
 }
 
 p, li {
-  color: #C7D2DE;
+  color: #374151;
 }
 
 strong {
-  color: #E8EEF7;
+  color: #0F172A;
   font-weight: 600;
 }
 
 em {
-  color: #94A3B8;
+  color: #4B5563;
   font-style: italic;
 }
 
 a {
-  color: #7CC4FF;
+  color: #1D4ED8;
   text-decoration: none;
-  border-bottom: 1px dotted rgba(124, 196, 255, 0.4);
+  border-bottom: 1px solid rgba(29, 78, 216, 0.3);
 }
 
 hr {
   border: none;
-  border-top: 1px solid rgba(148, 163, 184, 0.15);
+  border-top: 1px solid #E5E7EB;
   margin: 2em 0;
 }
 
+/* — Lists — */
 ul, ol {
   padding-left: 1.4em;
-  margin: 0.6em 0 1em 0;
+  margin: 0.4em 0 1em 0;
 }
 
 li {
-  margin-bottom: 0.35em;
+  margin-bottom: 0.3em;
 }
 
-blockquote {
-  border-left: 3px solid #7CC4FF;
-  background: rgba(124, 196, 255, 0.05);
-  padding: 0.8em 1.2em;
-  margin: 1em 0;
-  color: #C7D2DE;
-  border-radius: 0 6px 6px 0;
-}
-
+/* — Inline code — */
 code {
-  font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
-  font-size: 0.88em;
-  background: rgba(148, 163, 184, 0.1);
-  border: 1px solid rgba(148, 163, 184, 0.12);
-  color: #A8D8FF;
-  padding: 0.1em 0.4em;
-  border-radius: 4px;
+  font-family: 'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
+  font-size: 0.86em;
+  background: #F1F5F9;
+  color: #0F172A;
+  padding: 0.08em 0.4em;
+  border-radius: 3px;
+  border: 1px solid #E2E8F0;
 }
 
+/* — Code blocks — */
 pre {
-  background: #111827;
-  border: 1px solid rgba(148, 163, 184, 0.15);
-  border-radius: 8px;
-  padding: 14px 16px;
-  overflow-x: auto;
-  margin: 1em 0;
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 6px;
+  padding: 12px 14px;
+  margin: 0.8em 0 1.2em 0;
   page-break-inside: avoid;
+  overflow: hidden;
 }
 
 pre code {
   background: none;
   border: none;
-  color: #C7D2DE;
+  color: #1F2937;
   padding: 0;
-  font-size: 9pt;
+  font-size: 8.5pt;
   line-height: 1.55;
+  white-space: pre;
+  display: block;
 }
 
+/* — Tables — */
 table {
   border-collapse: collapse;
   width: 100%;
-  margin: 1em 0;
+  margin: 1em 0 1.4em 0;
   font-size: 9.5pt;
   page-break-inside: avoid;
 }
 
 thead {
-  background: rgba(124, 196, 255, 0.08);
+  border-bottom: 1.5px solid #CBD5E1;
 }
 
 th {
   text-align: left;
-  padding: 8px 12px;
-  border-bottom: 2px solid rgba(124, 196, 255, 0.3);
-  color: #7CC4FF;
+  padding: 8px 10px;
+  color: #0F172A;
   font-weight: 600;
-  text-transform: uppercase;
-  font-size: 8.5pt;
-  letter-spacing: 0.06em;
+  font-size: 9pt;
 }
 
 td {
-  padding: 8px 12px;
-  border-bottom: 1px solid rgba(148, 163, 184, 0.1);
-  color: #C7D2DE;
+  padding: 7px 10px;
+  border-bottom: 1px solid #F1F5F9;
+  color: #374151;
   vertical-align: top;
 }
 
@@ -172,28 +172,29 @@ tr:last-child td {
   border-bottom: none;
 }
 
-img, svg {
-  max-width: 100%;
-  page-break-inside: avoid;
+/* — Blockquotes — */
+blockquote {
+  border-left: 3px solid #CBD5E1;
+  padding: 0.4em 0 0.4em 1em;
+  margin: 1em 0;
+  color: #4B5563;
+  font-style: italic;
 }
 
-/* Don't break a heading away from its first paragraph */
-h1 + p, h2 + p, h3 + p {
+/* — Page-break tuning — */
+h1 + p, h2 + p, h3 + p,
+h1 + ul, h2 + ul, h3 + ul,
+h1 + ol, h2 + ol, h3 + ol,
+h1 + pre, h2 + pre, h3 + pre,
+h1 + table, h2 + table, h3 + table {
   page-break-before: avoid;
 }
 
-/* Footer / running mark */
-@page {
-  @bottom-right {
-    content: "Adaptive Antivirus · Architecture";
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 8pt;
-    color: #64748B;
-  }
-  @bottom-left {
-    content: counter(page) " / " counter(pages);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 8pt;
-    color: #64748B;
-  }
+table, pre, img {
+  page-break-inside: avoid;
+}
+
+/* Top-level Part headings get a page break before them */
+h1 {
+  page-break-before: auto;
 }
