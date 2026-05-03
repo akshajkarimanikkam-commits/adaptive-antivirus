@@ -17,6 +17,8 @@ from scratch.
 - **Type:** Thesis project — a marketing & product website for a
   fictional next-generation cybersecurity product
 - **Repo:** https://github.com/akshajkarimanikkam-commits/adaptive-antivirus
+- **Live (production):** https://adaptive-antivirus.vercel.app
+- **Vercel dashboard:** https://vercel.com/akshajkarimanikkam-commits-projects/adaptive-antivirus
 - **Dev URL (local):** `http://localhost:3000` (see `npm run dev`)
 
 The site is intended to feel at home next to Linear, Vercel, Stripe, Cloudflare,
@@ -36,8 +38,8 @@ on a near-black navy background, used as punctuation, never décor.
 | TypeScript strict | ✅ `tsc --noEmit` passes clean |
 | Build | ✅ `next build` produces 8 static pre-rendered routes |
 | Dev server | ✅ Runs clean (verified on port 3010 in original session) |
-| Lighthouse | ⚠️ Not run yet (no deploy target) |
-| Hosting | ⚠️ Not deployed |
+| Lighthouse | ⚠️ Not run yet (do this against the live URL) |
+| Hosting | ✅ Vercel — `adaptive-antivirus.vercel.app`. Deployed via CLI from local; Git auto-deploy not yet wired |
 | Tests | ⚠️ None (out of scope for thesis) |
 
 ## 3. Stack & key decisions
@@ -240,6 +242,14 @@ The repo is not deployed yet. Recommended path: Vercel zero-config import. Or a
 static export via `next build` + hosting on any CDN, since all routes pre-render.
 
 ## 11. Change log
+
+### 2026-05-03 — Production deploy on Vercel
+- Deployed to Vercel via `npx vercel --prod --yes` from local. Live at **https://adaptive-antivirus.vercel.app**
+- Project: `adaptive-antivirus` under Vercel scope `akshajkarimanikkam-commits-projects`
+- Build time: 37s; total deploy: 53s; all 9 routes pre-render static (`/`, `/platform`, `/how-it-works`, `/coverage`, `/demo`, `/pricing`, `/_not-found`)
+- All 6 user-facing routes verified live with HTTP 200; TTFB ~0.7–1.6s on cold cache
+- **Git auto-deploy is NOT yet wired** — pushes to `main` will not auto-redeploy until the Vercel project is connected to the GitHub repo via the Vercel dashboard (Settings → Git). Until then, future deploys need a manual `npx vercel --prod` from the project root
+- `~/.local/` did not get a `vercel` symlink — using `npx vercel` ad-hoc; if used often, install to `~/.local/` like Node and gh
 
 ### 2026-05-03 — Interactive demo
 - Added `/demo` route — client-side state-machine simulation of the full adaptive cycle, no real malware
