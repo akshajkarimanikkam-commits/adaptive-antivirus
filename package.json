@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "pdf:architecture": "md-to-pdf ARCHITECTURE.md --stylesheet scripts/pdf-style.css --pdf-options '{\"format\":\"A4\",\"printBackground\":true,\"margin\":{\"top\":\"22mm\",\"bottom\":\"22mm\",\"left\":\"18mm\",\"right\":\"18mm\"}}' && mv ARCHITECTURE.pdf public/ARCHITECTURE.pdf"
+    "pdf:architecture": "md-to-pdf ARCHITECTURE.md --stylesheet scripts/pdf-style.css --pdf-options '{\"format\":\"A4\",\"printBackground\":true,\"margin\":{\"top\":\"22mm\",\"bottom\":\"22mm\",\"left\":\"18mm\",\"right\":\"18mm\"}}'"
   },
   "dependencies": {
     "class-variance-authority": "0.7.1",
