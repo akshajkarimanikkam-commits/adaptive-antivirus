@@ -31,6 +31,7 @@ on a near-black navy background, used as punctuation, never décor.
 | `/platform` | ✅ Unique hero + `EngineSpec` section + 4 reused sections |
 | `/how-it-works` | ✅ Unique hero + `CycleDiagram` + 3 reused sections |
 | `/coverage` | ✅ Unique hero + `OSWall` + 3 reused sections |
+| `/demo` | ✅ Unique hero + interactive simulation + explainer cards |
 | `/pricing` | ✅ Unique hero + `Pricing` + `Competitive` + `PricingFAQ` + `Roadmap` |
 | TypeScript strict | ✅ `tsc --noEmit` passes clean |
 | Build | ✅ `next build` produces 8 static pre-rendered routes |
@@ -120,6 +121,7 @@ exactly one route-unique section.
 | `/platform` | `components/sections/heroes/PlatformHero.tsx` | `components/sections/EngineSpec.tsx` | Engine spec sheet (terminal-style, 8 rows) + 6 feature cards |
 | `/how-it-works` | `components/sections/heroes/HowHero.tsx` | `components/sections/CycleDiagram.tsx` | 4-phase Detect/Adapt/Harden/Share horizontal flow |
 | `/coverage` | `components/sections/heroes/CoverageHero.tsx` | `components/sections/OSWall.tsx` | Three OS columns (Desktop, Mobile, Console) with version floors |
+| `/demo` | `components/sections/heroes/DemoHero.tsx` | `components/sections/InteractiveDemo.tsx` + `components/sections/DemoExplainer.tsx` | 7-phase client-side state machine simulating detect→analyze→adapt→harden→share with a fake threat (`TROJAN.SIM.0XF7A2`). Streaming console + fleet propagation SVG |
 | `/pricing` | `components/sections/heroes/PricingHero.tsx` | `components/sections/PricingFAQ.tsx` | 6 expandable Q&A items |
 
 ## 7. Design conventions
@@ -238,6 +240,14 @@ The repo is not deployed yet. Recommended path: Vercel zero-config import. Or a
 static export via `next build` + hosting on any CDN, since all routes pre-render.
 
 ## 11. Change log
+
+### 2026-05-03 — Interactive demo
+- Added `/demo` route — client-side state-machine simulation of the full adaptive cycle, no real malware
+- New components: `components/sections/InteractiveDemo.tsx` (7-phase state machine: idle → detect → analyze → adapt → harden → share → complete; streaming engine console; fleet propagation SVG; reset button), `components/sections/heroes/DemoHero.tsx` (with prominent "Simulation only" amber disclaimer pill), `components/sections/DemoExplainer.tsx` (4 cards explaining what each phase did)
+- Fake threat name used: `TROJAN.SIM.0XF7A2` — the `.SIM.` infix is intentional to make the simulated nature obvious in screenshots and screen recordings
+- Wired home Hero's "Watch Demo" button to navigate to `/demo`
+- Added `Demo` to NAV_LINKS (between Coverage and Pricing); removed the "Company" anchor link to keep nav at 5 items
+- All 6 routes (incl. `/demo`) typecheck clean; dev server compiles clean
 
 ### 2026-05-02 — Bootstrap session
 - Installed Node 22.11 LTS user-locally (no sudo, no Homebrew)

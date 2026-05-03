@@ -11,8 +11,8 @@ export const NAV_LINKS = [
   { href: "/platform", label: "Platform" },
   { href: "/how-it-works", label: "How It Works" },
   { href: "/coverage", label: "Coverage" },
+  { href: "/demo", label: "Demo" },
   { href: "/pricing", label: "Pricing" },
-  { href: "#thesis", label: "Company" },
 ] as const;
 
 export const PLATFORM_PILLS = [

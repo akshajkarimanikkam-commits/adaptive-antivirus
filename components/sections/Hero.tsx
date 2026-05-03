@@ -106,10 +106,12 @@ export function Hero() {
                 Get Protected <ArrowRight size={16} />
               </Button>
             </Link>
-            <Button variant="ghost" size="lg">
-              <Play size={14} />
-              Watch Demo
-            </Button>
+            <Link href="/demo">
+              <Button variant="ghost" size="lg">
+                <Play size={14} />
+                Watch Demo
+              </Button>
+            </Link>
           </motion.div>
         </motion.div>
 
