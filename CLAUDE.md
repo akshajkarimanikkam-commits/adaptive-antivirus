@@ -40,6 +40,7 @@ on a near-black navy background, used as punctuation, never décor.
 | Dev server | ✅ Runs clean (verified on port 3010 in original session) |
 | Lighthouse | ⚠️ Not run yet (do this against the live URL) |
 | Hosting | ✅ Vercel — `adaptive-antivirus.vercel.app`. Deployed via CLI from local; Git auto-deploy not yet wired |
+| Email signup | ✅ Live — `app/api/signup` Route Handler sends a welcome via Resend. CTA form is wired with loading/success/error states + honeypot |
 | Tests | ⚠️ None (out of scope for thesis) |
 
 ## 3. Stack & key decisions
@@ -167,6 +168,17 @@ plus framer-motion's `useReducedMotion` for JS-driven cases (see `ParticleField`
 - `.text-gradient-cyan` — cyan-blue gradient on text
 - `.text-gradient-soft` — slate gradient on text
 
+## 7.5 Required env vars (production + local)
+
+See `.env.example` at the repo root for the canonical list.
+
+| Variable | Where to set | Notes |
+|---|---|---|
+| `RESEND_API_KEY` | `vercel env add RESEND_API_KEY production` + `.env.local` | Resend key. Starts with `re_…`. **Never commit.** |
+| `RESEND_FROM` | same | Default: `Adaptive Antivirus Team <onboarding@resend.dev>`. Swap to `team@<custom-domain>` once a domain is verified in Resend |
+
+The `/api/signup` route fails closed with HTTP 500 / `server_misconfigured` if `RESEND_API_KEY` is missing — easy to debug from Vercel function logs.
+
 ## 8. Environment quirks (READ before re-running)
 
 This project was bootstrapped on a machine with **no Node, no Homebrew, no gh CLI**
@@ -229,7 +241,10 @@ Route (app)              Size    First Load JS
 - [ ] Per-route OG images — current single `og-image.svg` is generic; add per-route variants matching each hero
 - [ ] Swap Recharts for a hand-rolled SVG area chart on `CyberReality` (would shave ~50 KB from home First Load JS)
 - [ ] Lighthouse run on a deployed instance (see "Deployment" below)
-- [ ] Real backend for the email signup form in `CTA` (currently presentational; could wire to a Next.js Route Handler + Resend/Loops)
+- [x] ~~Real backend for the email signup form in `CTA`~~ — done 2026-05-03, see change log
+- [ ] Verify a custom domain in Resend so welcome emails ship from `team@adaptiveantivirus.com` instead of `onboarding@resend.dev` (this is the biggest remaining deliverability lever — shared `resend.dev` sender is downranked by some inbox providers)
+- [ ] Persist signups (Vercel KV or Supabase) so future broadcast emails have a list to send to. Right now the only record of who signed up is the Resend Email Logs dashboard
+- [ ] Replace the `mailto:unsubscribe@adaptive-antivirus.vercel.app` in the `List-Unsubscribe` header with a real one-click unsubscribe endpoint once a list/database exists
 
 ### Larger / future
 - [ ] Tailwind v4 stable bump when v4 GA ships
@@ -242,6 +257,17 @@ The repo is not deployed yet. Recommended path: Vercel zero-config import. Or a
 static export via `next build` + hosting on any CDN, since all routes pre-render.
 
 ## 11. Change log
+
+### 2026-05-03 — Email signup integration (Resend)
+- Wired the home-page CTA form to actually send a welcome email instead of just flipping local state
+- New: `app/api/signup/route.ts` — POST handler with email-format validation, honeypot bot check (hidden `website` field — bots fill, humans don't see), Resend API call, structured 400/500/502 error responses
+- New: `lib/welcomeEmail.ts` — single source of truth for the welcome email subject + HTML + plain-text. Both versions sent (best practice for deliverability)
+- New: `.env.example` — documents the two required env vars (`RESEND_API_KEY`, `RESEND_FROM`)
+- Updated: `components/sections/CTA.tsx` — real fetch with idle/loading/success/error states, disabled-while-sending, accessible `aria-live` status region, hidden honeypot input
+- Email design rewritten mid-session after first version looked too "marketing": removed gradients, decorative numbered circles, eyebrow pill, fake `.example` reply-to. Replaced with a left-aligned ~80-word transactional layout, hidden preheader text, and proper `List-Unsubscribe` + `List-Unsubscribe-Post` headers (Gmail/Yahoo bulk-sender requirement since 2024)
+- From-address: `Adaptive Antivirus Team <onboarding@resend.dev>` — using Resend's shared verified domain because no custom domain is registered yet. **Custom domain is the biggest remaining deliverability lever** — see Open TODOs §10
+- Resend free tier (3,000 emails/month) is plenty for the early access list at thesis-project scale
+- API key was rotated/handled via `vercel env add` (production) and `.env.local` (local dev, gitignored). Never committed
 
 ### 2026-05-03 — Production deploy on Vercel
 - Deployed to Vercel via `npx vercel --prod --yes` from local. Live at **https://adaptive-antivirus.vercel.app**
